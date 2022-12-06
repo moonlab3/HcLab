@@ -18,14 +18,18 @@ client.on('connect', function(connection) {
 		if(message.type === 'utf8') {
 			console.log('recved:' + message.utf8Data);
 		}
+		else {
+			console.log('rcved raw data:' + message.data);
+		}
 	});
 
 	function sendNumber() {
 		if(connection.connected) {
 			var number = Math.round(Math.random() * 0xFFFFFF);
-			//connection.sendUTF(number.toString() + ' from ' + connection.getURI());
-			connection.sendUTF(number.toString());
-			setTimeout(sendNumber, 1000);
+			//connection.sendUTF(number.toString());
+			connection.send(number.toString());
+			//console.log(`status: ${JSON.stringify(connection.readyState)}`);
+			setTimeout(sendNumber, 100);
 		}
 	}
 	sendNumber();

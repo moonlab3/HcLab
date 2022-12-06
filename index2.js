@@ -18,16 +18,26 @@ wsServer = new WebSocketServer({
 
 wsServer.on('request', function(request){
 	var connection = request.accept('hclab-protocol', request.origin);
+
+	function closeConnection() {
+		connection.close();
+	};
+
 	console.log((new Date()) + 'connection accepted.');
 	connection.on('message', function(message) {
 		if(message.type === 'utf8'){
 			//console.log('recvd: ' + message.utf8Data + ' from ' + request.origin);
 			console.log('recvd: ' + message.utf8Data);
 			connection.sendUTF(message.utf8Data);
+			setTimeout(closeConnection, 1000);
 		}
 		else if (message.type === 'binary') {
 			console.log('recvd binary' + message.binaryData.length + 'bytes');
 			connection.sendBytes(message.binaryData);
+		}
+		else {
+			console.log('rcvd data:' + message.data);
+			connection.send(message.data);
 		}
 	});
 	connection.on('close', function(reasonCode, description) {
