@@ -36,8 +36,8 @@ io.on('connection', (socket) => {
 	});
 });
 
-server.listen(3001, () => {
+server.listen(port, () => {
 	count = 0;
 	//cntSocket = 0;
-	console.log('listening on *:3001');
+	console.log(`listening on *:${port}`);
 });

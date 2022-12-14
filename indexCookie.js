@@ -6,6 +6,8 @@ const http = require('http');
 const { stringify } = require('querystring');
 const server = http.createServer(app);
 
+const port = 3002;
+
 app.use(cookieParser());
 
 app.get('/getCookie', (req, res) => {
@@ -17,12 +19,12 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/indexCookie.html');
 });
 
-server.listen(3000, function (req, res) {
+server.listen(port, function (req, res) {
   /*
   res.writeHead(200, {
     'Set-Cookie':['cookieOne = minkyu', 'cookieTwo = hotaek']
   });
   */
-  console.log('listening on 3000');
+  console.log(`listening on ${port}`);
   //console.log('header:'+JSON.stringify(req.headers));
 });
