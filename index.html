@@ -21,7 +21,6 @@
 		<input id="input" autocomplete="off" /><button>Send</button>
 	</form>
 
-	<!--
 	<script src ="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io();
@@ -32,11 +31,36 @@
 
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			if(input.value) {
-				socket.emit('message', input.value);
-				input.value = '';
+      var msgType = input.value.split(' ')[0];
+      var msgContent = input.value.split(' ')[1];
+			if(msgType == 'dis') {
+				//socket.emit('message', input.value);
+        socket.disconnect();
 			}
+      else if(msgType == 'reconn') {
+        console.log('reconnect' + msgContent);
+        //socket = prvSocket;
+        socket.connect();
+      }
+      else if(msgType == 'hscan') {
+        setInterval(() => {
+          socket.emit(msgType, msgContent);
+        }, 500);
+				socket.emit(msgType, msgContent);
+      }
+      else {
+        socket.emit('hscan', msgContent);
+      }
+      input.value = '';
 		});
+
+    socket.on('hscan', function(msg) {
+      console.log('hscan rcvd: ', msg);
+    });
+
+    socket.on('signup', function(msg) {
+      console.log('signup rcvd: ', msg);
+    });
 
 		socket.on('message', function(msg) {
 			var item = document.createElement('li');
@@ -45,6 +69,5 @@
 			window.scrollTo(0, document.body.scrollHeight);
 		});
 	</script>
--->
 </body>
 </html>

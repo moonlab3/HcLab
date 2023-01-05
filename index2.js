@@ -18,6 +18,14 @@ wsServer = new WebSocketServer({
 	autoAcceptConnections: false
 });
 
+function test() {
+  var idTag = "wkejf928349u23";
+  var str = [2, '234', "StopTransaction", {"connectorId":"1", "meterStop":1200, "idTag":idTag}];
+  console.log(JSON.stringify(str));
+}
+
+test();
+
 wsServer.on('request', function(request){
 	var connection = request.accept('hclab-protocol', request.origin);
 

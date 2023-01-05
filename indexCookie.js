@@ -20,6 +20,8 @@ app.get('/', (req, res) => {
 });
 
 server.listen(port, function (req, res) {
+  var temp = [2,'3',"BootNotification",{"chargePointSerialNumber":"CPG","chargePointVendor":"Matth","chargePointModel":"Ghost 1","chargeBoxSerialNumber":"CPG01","firmwareVersion":"1.0.0"}]
+  console.log(JSON.stringify(temp));
   /*
   res.writeHead(200, {
     'Set-Cookie':['cookieOne = minkyu', 'cookieTwo = hotaek']

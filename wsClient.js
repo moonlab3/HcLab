@@ -27,7 +27,7 @@ client.on('connect', function(connection) {
 		if(connection.connected) {
 			var number = Math.round(Math.random() * 0xFFFFFF);
 			//connection.sendUTF(number.toString());
-			connection.send(number.toString());
+			connection.sendBytes(number.toString());
 			//console.log(`status: ${JSON.stringify(connection.readyState)}`);
 			setTimeout(sendNumber, 100);
 		}
